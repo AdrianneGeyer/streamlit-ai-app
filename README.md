@@ -2,6 +2,8 @@
 
 This project is a hands-on demo of a real-world AI Prompt Engineering tool built using Python, Hugging Face Transformers, and Streamlit. It allows users to craft, format, and send prompts to a hosted language model via the Hugging Face Inference API.
 
+![App Screenshot](assets/ai_assistant_app.png)
+
 ## 🚀 Features
 
 - Prompt builder with customizable:

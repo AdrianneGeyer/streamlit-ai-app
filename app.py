@@ -1,14 +1,21 @@
+import os
+from dotenv import load_dotenv
 import streamlit as st
 import requests
 
 # Replace with your actual Hugging Face API token
-HUGGINGFACE_API_TOKEN = "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"
+load_dotenv()
+HUGGINGFACE_API_TOKEN = os.getenv("HUGGINGFACE_API_TOKEN")
+
+if not HUGGINGFACE_API_TOKEN:
+    st.error("❌ Hugging Face API token is missing. Please check your .env file.")
+    st.stop()
 
 # Choose a hosted model (Zephyr is free, fast, and high quality)
 API_URL = "https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta"
 
 headers = {
-    "Authorization": f"Bearer {'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'}"
+    "Authorization": f"Bearer {'HUGGINGFACE_API_TOKEN'}"
 }
 
 # Prompt Generator: Wrap the users question into a prompt to give the LLM context and tone
