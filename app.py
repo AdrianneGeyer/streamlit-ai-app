@@ -6,13 +6,12 @@ import requests
 # Replace with your actual Hugging Face API token
 load_dotenv()
 HF_TOKEN = os.getenv("HUGGINGFACE_API_TOKEN")
-
 if not HF_TOKEN:
     st.error("❌ Hugging Face API token is missing. Please check your .env file.")
     st.stop()
 
 # Choose a hosted model (Zephyr is free, fast, and high quality)
-API_URL = "https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta"
+API_URL = "https://api-inference.huggingface.co/models/Helsinki-NLP/opus-mt-en-fr"
 
 headers = {
     "Authorization": f"Bearer {HF_TOKEN}"
@@ -32,22 +31,19 @@ Assistant:"""
 # Call the Hugging Face Inference API
 def query_llm(prompt):
     payload = {
-        "inputs": prompt,
-        "parameters": {
-            "temperature": 0.7,
-            "max_new_tokens": 200
-        }
+        "inputs": prompt
     }
     response = requests.post(API_URL, headers=headers, json=payload)
 
     if response.status_code == 200:
         output = response.json()
-        if isinstance(output, list) and "generated_text" in output[0]:
-            return output[0]["generated_text"].split("Assistant:")[-1].strip()
+        if isinstance(output, list) and "translation_text" in output[0]:
+            return output[0]["translation_text"]
         else:
-            return "⚠️ Unexpected response format from model."
+            return "⚠️ Unexpected response format from translation model."
     else:
         return f"❌ API Error {response.status_code}: {response.text}"
+
 
 # Streamlit UI
 st.set_page_config(page_title="AI Prompt Assistant", layout="centered")
