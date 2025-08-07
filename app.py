@@ -5,9 +5,9 @@ import requests
 
 # Replace with your actual Hugging Face API token
 load_dotenv()
-HUGGINGFACE_API_TOKEN = os.getenv("HUGGINGFACE_API_TOKEN")
+HF_TOKEN = os.getenv("HUGGINGFACE_API_TOKEN")
 
-if not HUGGINGFACE_API_TOKEN:
+if not HF_TOKEN:
     st.error("❌ Hugging Face API token is missing. Please check your .env file.")
     st.stop()
 
@@ -15,7 +15,7 @@ if not HUGGINGFACE_API_TOKEN:
 API_URL = "https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta"
 
 headers = {
-    "Authorization": f"Bearer {'HUGGINGFACE_API_TOKEN'}"
+    "Authorization": f"Bearer {HF_TOKEN}"
 }
 
 # Prompt Generator: Wrap the users question into a prompt to give the LLM context and tone
